@@ -21,8 +21,22 @@ e.g.
     the index of pivot element.
 */
 int partition(vector<int>& nums, int low, int high){
-    // TODO
-    return 0;
+    int pivot = low;
+    int low_index = pivot + 1;
+    
+    // iterating through all elements and putting them in right set
+    for(int i=pivot+1; i<=high; i++){
+        // if the current number is less than pivot
+        // then put it into low_elements set
+        if( nums[i] < nums[pivot] ){
+            swap(nums[i], nums[low_index]);
+            low_index+=1;
+        }
+    }
+
+    // move the pivot in correct position
+    swap(nums[pivot], nums[low_index-1]);
+    return low_index-1;
 }
 
 /*
@@ -36,7 +50,13 @@ quick_sort function will sort the array in-place in the given bounds
     the algorithm sorts the vector in-place. so, it does not return anything.
 */
 void _quick_sort(vector<int>& nums, int low, int high){
-    // TODO
+    if( low >= high ) return;
+
+
+    int partition_index = partition(nums, low, high);
+
+    _quick_sort(nums, low,               partition_index-1);
+    _quick_sort(nums, partition_index+1, high);
 }
 
 /*
